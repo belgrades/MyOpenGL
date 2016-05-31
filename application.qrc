@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/copy.png</file>
+        <file>images/cut.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/paste.png</file>
+        <file>images/save.png</file>
+        <file>images/Actions-window-fullscreen-icon.png</file>
+        <file>images/Button-Add-icon.png</file>
+        <file>images/Button-Blank-Red-icon.png</file>
+        <file>images/Button-Cancel-icon.png</file>
+        <file>images/Button-Info-icon.png</file>
+        <file>images/Button-Ok-icon.png</file>
+        <file>images/Button-Previous-icon.png</file>
+        <file>images/Button-Refresh-icon.png</file>
+        <file>images/Button-Turn-Off-icon.png</file>
+        <file>images/Mimetypes-rgb-icon.png</file>
+        <file>images/seo-panda-icon.png</file>
+    </qresource>
+</RCC>
