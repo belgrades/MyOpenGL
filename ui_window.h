@@ -380,6 +380,7 @@ public:
         QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), myGLWidget, SLOT(red_slider_slot(int)));
         QObject::connect(horizontalSlider_2, SIGNAL(valueChanged(int)), myGLWidget, SLOT(green_slider_slot(int)));
         QObject::connect(horizontalSlider_3, SIGNAL(valueChanged(int)), myGLWidget, SLOT(blue_slider_slot(int)));
+        QObject::connect(toolButton_6, SIGNAL(clicked()), myGLWidget, SLOT(open_file_slot()));
 
         QMetaObject::connectSlotsByName(Window);
     } // setupUi

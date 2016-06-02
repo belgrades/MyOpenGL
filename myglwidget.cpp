@@ -110,6 +110,8 @@ void MyGLWidget::add_button_pressed_slot(){
     cout<<"Anadiendo Figura nueva"<<endl;
 }
 
+/* Figures Slots */
+
 void MyGLWidget::linea_button_pressed_slot(bool press){
     if(!press)
        cout<<"Linea desactiva "<<a++<<endl;
@@ -129,7 +131,6 @@ void MyGLWidget::triangulo_button_pressed_slot(bool press){
 }
 
 void MyGLWidget::rectangulo_button_pressed_slot(bool press){
-
    if(!press)
       cout<<"Rectangulo desactiva "<<a++<<endl;
    else
@@ -144,27 +145,44 @@ void MyGLWidget::elipse_button_pressed_slot(bool press){
        cout<<"Elipse activo"<<a++<<endl;
 }
 
+/* Colors Slots */
+
 void MyGLWidget::red_slider_slot(int number){
-    figuras.at(0)->color.setX(((float)number)/255.0);
+    figuras[0]->color.setX(((float)number)/255.0);
     updateGL();
 }
 
 void MyGLWidget::green_slider_slot(int number){
-    figuras.at(0)->color.setY(((float)number)/255.0);
+    figuras[0]->color.setY(((float)number)/255.0);
     updateGL();
 }
 
 
 void MyGLWidget::blue_slider_slot(int number){
-    figuras.at(0)->color.setZ(((float)number)/255.0);
+    figuras[0]->color.setZ(((float)number)/255.0);
     updateGL();
+}
+
+
+void MyGLWidget::open_file_slot(){
+    QString filename = QFileDialog::getOpenFileName(
+                this,
+                tr("Abrir Archivo"),
+                "C:\\Users\\Crema\\Desktop\\MyOpenGL\\modelos",
+                "All files (*.*);;Off files (*,off)"
+                );
+
+    QMessageBox::information(this, tr("Archivo abierto"), filename);
+
+    cout<<"filename: "<<filename.toStdString()<<endl;
+
 }
 
 
 
 void MyGLWidget::setZRotation(int angle)
 {
-    cout<<"Fran es sexy "<< figuras.at(0)->puntos_control_opengl.at(0)->z()<<endl;
+
     emit zRotationChanged(angle);
     updateGL();
     /*qNormalizeAngle(angle);
@@ -234,8 +252,12 @@ void MyGLWidget::resizeGL(int width, int height)
 void MyGLWidget::mousePressEvent(QMouseEvent *event)
 {
     lastPos = event->pos();
-    cout<<"mousePressEvent>> "<<event->x()<<" "<<PixelToOpenGLX(event->x())<<endl;
-    cout<<"mousePressEvent>> "<<event->y()<<" "<<PixelToOpenGLY(event->y())<<endl;
+    cout<<"mousePressEvent"<<endl;
+
+    figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+    figuras[0]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+
+    updateGL();
 
 }
 
@@ -246,18 +268,9 @@ void MyGLWidget::mouseDoubleClickEvent(QMouseEvent *event){
 
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    cout<<"mouseMoveEvent>> "<<event->x()<<endl;
-    cout<<"mouseMoveEvent>> "<<event->y()<<endl;
 
-   figuras.at(0)->puntos_control_opengl.at(1)->setX(PixelToOpenGLX(event->x()));
-   figuras.at(0)->puntos_control_opengl.at(1)->setY(PixelToOpenGLY(event->y()));
-   qDebug()<<figuras.at(0)->puntos_control_opengl.at(0)->x()<<" "<<figuras.at(0)->puntos_control_opengl.at(1)->x();
-   qDebug()<<figuras.at(0)->puntos_control_opengl.at(0)->y()<<" "<<figuras.at(0)->puntos_control_opengl.at(1)->y();
-
-    for(int i=0;i<figuras.size();i++){
-        cout<<"x: "<<PixelToOpenGLX(event->x())<<" y: "<<PixelToOpenGLY(event->y())<<endl;
-        cout<<"x: "<<figuras.at(0)->puntos_control_opengl.at(1)->x()<<" y: "<<figuras.at(0)->puntos_control_opengl.at(1)->y()<<endl;
-    }
+   figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+   figuras[0]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
 
     int dx = event->x() - lastPos.x();
 
@@ -279,23 +292,7 @@ void MyGLWidget::draw()
 {
     for(int i=0;i<figuras.size();i++){
         figuras.at(i)->dibujar_figura();
-        cout<<"x: "<<figuras.at(0)->puntos_control_opengl.at(1)->x()<<" y: "<<figuras.at(0)->puntos_control_opengl.at(1)->y()<<endl;
 
     }
-
-}
-
-void MyGLWidget::open_file(){
-
-    cout<<"Opening file>>"<<endl;
-    QString filename = QFileDialog::getOpenFileName(
-                this,
-                tr("Abrir Archivo"),
-                "C:\\Users\\Crema\\Desktop\\MyOpenGL\\modelos",
-                "All files (*.*);;Off files (*,off)"
-                );
-    QMessageBox::information(this, tr("Archivo abierto"), filename);
-
-    //cout<<"filename: "<<(string)filename<<endl;
 
 }

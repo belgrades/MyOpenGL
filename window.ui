@@ -531,7 +531,7 @@
     <slot>rectangulo_button_pressed_slot(bool)</slot>
     <slot>elipse_button_pressed_slot(bool)</slot>
     <slot>progress_bar_slot(int)</slot>
-    <slot>open_file()</slot>
+    <slot>open_file_slot()</slot>
     <slot>done_button_pressed_slot()</slot>
     <slot>add_button_pressed_slot()</slot>
     <slot>red_slider_slot(int)</slot>
@@ -803,6 +803,22 @@
     <hint type="destinationlabel">
      <x>190</x>
      <y>187</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>myGLWidget</receiver>
+   <slot>open_file_slot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>399</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>44</x>
+     <y>185</y>
     </hint>
    </hints>
   </connection>

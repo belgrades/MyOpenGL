@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MyGLWidget_t {
     QByteArrayData data[28];
-    char stringdata[451];
+    char stringdata[456];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -55,8 +55,8 @@ QT_MOC_LITERAL(22, 357, 6),
 QT_MOC_LITERAL(23, 364, 16),
 QT_MOC_LITERAL(24, 381, 17),
 QT_MOC_LITERAL(25, 399, 23),
-QT_MOC_LITERAL(26, 423, 9),
-QT_MOC_LITERAL(27, 433, 17)
+QT_MOC_LITERAL(26, 423, 14),
+QT_MOC_LITERAL(27, 438, 17)
     },
     "MyGLWidget\0xRotationChanged\0\0angle\0"
     "yRotationChanged\0zRotationChanged\0"
@@ -69,7 +69,7 @@ QT_MOC_LITERAL(27, 433, 17)
     "elipse_button_pressed_slot\0"
     "done_button_pressed_slot\0red_slider_slot\0"
     "number\0blue_slider_slot\0green_slider_slot\0"
-    "add_button_pressed_slot\0open_file\0"
+    "add_button_pressed_slot\0open_file_slot\0"
     "progress_bar_slot"
 };
 #undef QT_MOC_LITERAL
@@ -164,7 +164,7 @@ void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 16: _t->blue_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 17: _t->green_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 18: _t->add_button_pressed_slot(); break;
-        case 19: _t->open_file(); break;
+        case 19: _t->open_file_slot(); break;
         case 20: _t->progress_bar_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }

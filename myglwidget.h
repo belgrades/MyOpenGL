@@ -19,7 +19,7 @@ public:
     ~MyGLWidget();
     int GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT;
    int a;
-     QVector<figura*> figuras;
+   QVector<figura*> figuras;
 
 protected:
     /**Methods Pixel -> GL ; GL -> Pixel**/
@@ -58,7 +58,7 @@ public slots:
     void green_slider_slot(int number);
 
     void add_button_pressed_slot();
-    void open_file();
+    void open_file_slot();
     //Slot for progress bar
     void progress_bar_slot(int progress);
 
