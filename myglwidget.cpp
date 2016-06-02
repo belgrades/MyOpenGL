@@ -21,6 +21,8 @@ MyGLWidget::MyGLWidget(QWidget *parent)
     xRot = 0;
     yRot = 0;
     zRot = 0;
+    probando = 0;
+    error = new QErrorMessage(this);
     QVector3D *inicio = new QVector3D(0.0, 0.0, 0.0);
     QVector3D *fin = new QVector3D(0.0, 0.0, 0.0);
     QVector3D color = QVector3D(1.0, 0.0, 0.0);
@@ -98,6 +100,13 @@ void MyGLWidget::setYRotation(int angle)
     }*/
 }
 
+void MyGLWidget::spin_slot(int value){
+    cout<<value<<endl;
+    if(value > probando)
+        emit spin_signal(value - 1);
+
+}
+
 void MyGLWidget::done_button_pressed_slot(void){
     cout<<"Esto es una prueba"<<endl;
 }
@@ -108,6 +117,19 @@ void MyGLWidget::progress_bar_slot(int progress){
 
 void MyGLWidget::add_button_pressed_slot(){
     cout<<"Anadiendo Figura nueva"<<endl;
+    probando+=1;
+   /* QMessageBox messageBox;
+    messageBox.critical(0,"Error","An error has occured !");*/
+
+    /*
+    QMessageBox msgBox;
+     msgBox.setWindowTitle("Error!");
+     msgBox.setText("Short description");
+     msgBox.setDetailedText("Detailed error Information");
+     msgBox.exec();
+     */
+
+    error->showMessage("This is a message");
 }
 
 /* Figures Slots */
@@ -172,7 +194,8 @@ void MyGLWidget::open_file_slot(){
                 "All files (*.*);;Off files (*,off)"
                 );
 
-    QMessageBox::information(this, tr("Archivo abierto"), filename);
+     QMessageBox::information(this, tr("Archivo abierto"), filename);
+
 
     cout<<"filename: "<<filename.toStdString()<<endl;
 
