@@ -8,13 +8,18 @@ linea::linea(QVector<QVector3D*> opengl, QVector<QVector3D*> pixel, QVector3D co
     puntos_control_opengl = opengl;
     puntos_control_pixel = pixel ;
     color = color1;
+    done = false;
+    initialize = true;
 }
 
 
 void linea::dibujar_figura()
 {
     glPointSize(5.0);
-    glColor3f(0.0,1.0,0.0);
+    if(done)
+        glColor3f(0.0,1.0,0.0);
+    else
+        glColor3f(1.0,1.0,0.0);
     glBegin(GL_POINTS);
         for(int i=0;i<puntos_control_opengl.size();i++){
             glVertex3f(puntos_control_opengl[i]->x(),puntos_control_opengl[i]->y(),0);

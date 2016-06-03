@@ -24,7 +24,8 @@ HEADERS  += window.h \
     myglwidget.h \
     figura.h\
     widget3d.h \
-    linea.h
+    linea.h \
+    figure_type.h
 
 
 FORMS    += window.ui

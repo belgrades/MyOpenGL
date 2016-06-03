@@ -10,6 +10,7 @@
 #include "figura.h"
 #include "linea.h"
 
+
 using namespace std;
 #include "myglwidget.h"
 
@@ -18,25 +19,13 @@ int a = 0;
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QGLWidget(QGLFormat(QGL::SampleBuffers), parent)
 {
+    actual_figure = NONE;
+    actual = -1;
     xRot = 0;
     yRot = 0;
     zRot = 0;
     probando = 0;
-    error = new QErrorMessage(this);
-    QVector3D *inicio = new QVector3D(0.0, 0.0, 0.0);
-    QVector3D *fin = new QVector3D(0.0, 0.0, 0.0);
-    QVector3D color = QVector3D(1.0, 0.0, 0.0);
-
-    QVector<QVector3D*> opengl, pixel;
-    opengl.push_back(inicio);
-    opengl.push_back(fin);
-
-    pixel<<inicio<<fin;
-
-
-    figura* a = new linea(opengl, pixel, color);
-    figuras.push_back(a);
-
+    error_loading = new QErrorMessage(this);
 }
 
 MyGLWidget::~MyGLWidget()
@@ -78,10 +67,33 @@ static void qNormalizeAngle(int &angle)
 }
 
 void MyGLWidget::spin_slot(int value){
-    cout<<value<<endl;
-    if(value > probando)
-        emit spin_signal(value - 1);
 
+    if(value > figuras.size() - 1)
+        emit spin_signal(value - 1);
+    else if(value != actual){
+        if(figuras.size()>0 && !figuras[actual]->done){
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::question(this, "Figura no finalizada", "Desea finalizar, guardar la figura? Se seleccionará el índice seleccionado como actual.",
+                                        QMessageBox::Yes|QMessageBox::No);
+            if (reply == QMessageBox::Yes) {
+                figuras[actual]->done = true;
+                actual = value;
+                figuras[actual]->done = false;
+            } else {
+                // Erase element not done
+                figuras.removeAt(actual);
+
+                // Set actual index to last element in figures
+                actual =  value;
+
+                // Undone actual
+                figuras[actual]->done = false;
+
+                // Modify spin to actual
+                emit spin_signal(actual);
+            }
+        }
+    }
 }
 
 void MyGLWidget::done_button_pressed_slot(void){
@@ -94,15 +106,76 @@ void MyGLWidget::progress_bar_slot(int progress){
 
 void MyGLWidget::add_button_pressed_slot(){
     cout<<"Anadiendo Figura nueva"<<endl;
-    probando+=1;
+
+    QVector3D *inicio, *fin, color;
+    QVector<QVector3D*> opengl, pixel;
+    figura* a;
+
+    if(figuras.size()>0 && !figuras[actual]->done){
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Figura no finalizada", "Desea finalizar y guardar la figura?",
+                                    QMessageBox::Yes|QMessageBox::No);
+        if (reply == QMessageBox::Yes) {
+            figuras[actual]->done = true;
+        } else {
+            // Erase element not done
+            figuras.removeAt(actual);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
+        }
+    }
+
+
+    switch(actual_figure){
+        case NONE:
+             error_loading->showMessage("Seleccione un tipo de figura para añadir");
+        break;
+
+        case LINE:
+            cout<<"Adding line"<<endl;
+            inicio = new QVector3D(0.0, 0.0, 0.0);
+            fin = new QVector3D(0.0, 0.0, 0.0);
+            color = QVector3D(1.0, 0.0, 0.0);
+
+            opengl.push_back(inicio);
+            opengl.push_back(fin);
+
+            pixel<<inicio<<fin;
+
+            a = new linea(opengl, pixel, color);
+            figuras.push_back(a);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
+        break;
+
+        case ELLIPSE:
+            cout<<"Adding Ellipse"<<endl;
+        break;
+
+        case QUAD:
+            cout<<"Adding Quad"<<endl;
+        break;
+
+        case TRIANGLE:
+            cout<<"Adding Triangle"<<endl;
+        break;
+
+        case BEZIER:
+            cout<<"Adding Bezier"<<endl;
+        break;
+    }
+
+    updateGL();
    /* QMessageBox messageBox;
     messageBox.critical(0,"Error","An error has occured !");*/
-
-    /*
-
-     */
-
-    error->showMessage("This is a message");
 }
 
 /* Figures Slots */
@@ -112,16 +185,16 @@ void MyGLWidget::linea_button_pressed_slot(bool press){
        cout<<"Linea desactiva "<<a++<<endl;
     else{
        cout<<"Linea activo"<<a++<<endl;
+       actual_figure = LINE;
        emit progress_bar_signal(25);
-    }cout<<"-----"<<endl;
-
+    }
 }
 
 void MyGLWidget::triangulo_button_pressed_slot(bool press){
     if(!press)
        cout<<"Triangulo desactiva "<<a++<<endl;
     else
-       cout<<"Triangulo activo"<<a++<<endl;
+       actual_figure = TRIANGLE;
 
 }
 
@@ -129,7 +202,7 @@ void MyGLWidget::rectangulo_button_pressed_slot(bool press){
    if(!press)
       cout<<"Rectangulo desactiva "<<a++<<endl;
    else
-      cout<<"Rectangulo activo"<<a++<<endl;
+      actual_figure = QUAD;
 
 }
 
@@ -137,24 +210,28 @@ void MyGLWidget::elipse_button_pressed_slot(bool press){
     if(!press)
        cout<<"Elipse desactiva "<<a++<<endl;
     else
-       cout<<"Elipse activo"<<a++<<endl;
+       actual_figure = ELLIPSE;
 }
 
 /* Colors Slots */
 
 void MyGLWidget::red_slider_slot(int number){
-    figuras[0]->color.setX(((float)number)/255.0);
+    if(figuras.size()>0 && !figuras[actual]->done)
+        figuras[actual]->color.setX(((float)number)/255.0);
+
     updateGL();
 }
 
 void MyGLWidget::green_slider_slot(int number){
-    figuras[0]->color.setY(((float)number)/255.0);
+    if(figuras.size()>0 && !figuras[actual]->done)
+        figuras[actual]->color.setY(((float)number)/255.0);
     updateGL();
 }
 
 
 void MyGLWidget::blue_slider_slot(int number){
-    figuras[0]->color.setZ(((float)number)/255.0);
+    if(figuras.size()>0 && !figuras[actual]->done)
+        figuras[actual]->color.setZ(((float)number)/255.0);
     updateGL();
 }
 
@@ -170,10 +247,7 @@ void MyGLWidget::open_file_slot(){
      QMessageBox::information(this, tr("Archivo abierto"), filename);
 
     cout<<"filename: "<<filename.toStdString()<<endl;
-
 }
-
-
 
 void MyGLWidget::initializeGL()
 {
@@ -202,7 +276,6 @@ void MyGLWidget::paintGL()
 
 void MyGLWidget::resizeGL(int width, int height)
 {
-    cout<<"resizeGL>> w "<<width<<" h "<<height<<endl;
 
     GL_WINDOW_WIDTH = width;
     GL_WINDOW_HEIGHT = height;
@@ -225,10 +298,20 @@ void MyGLWidget::resizeGL(int width, int height)
 void MyGLWidget::mousePressEvent(QMouseEvent *event)
 {
     cout<<"mousePressEvent"<<endl;
+    if(figuras.size()>0 && !figuras[actual]->done){
 
-    figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
-    figuras[0]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+        // First point should be initialize
+        if(figuras[actual]->initialize){
+            figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
+            figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
+            figuras[actual]->initialize = false;
+            cout<<"CREMA"<<endl;
+        }
 
+        // Modify the second point
+        figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+        figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+    }
     updateGL();
 
 }
@@ -240,18 +323,18 @@ void MyGLWidget::mouseDoubleClickEvent(QMouseEvent *event){
 
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-
-   figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
-   figuras[0]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
-
+    if(figuras.size()>0 && !figuras[actual]->done){
+       figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+       figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+    }
     updateGL();
 }
 
 void MyGLWidget::draw()
 {
     for(int i=0;i<figuras.size();i++){
-        figuras.at(i)->dibujar_figura();
-
+        if(!figuras[i]->initialize)
+            figuras[i]->dibujar_figura();
     }
 
 }

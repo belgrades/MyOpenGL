@@ -7,6 +7,7 @@
 #include <QLCDNumber>
 #include "figura.h"
 #include "linea.h"
+#include "figure_type.h"
 #include <vector>
 using namespace std;
 
@@ -29,7 +30,11 @@ protected:
     GLint OpenGLToPixelX(float x);
     GLint OpenGLToPixelY(float y);
 
-    QErrorMessage *error;
+    /* Actual Figure */
+    figureType actual_figure;
+    int actual;
+
+    QErrorMessage *error_loading;
 
     /**OpenGL virtual methods**/
     void initializeGL();
