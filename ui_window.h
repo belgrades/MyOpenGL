@@ -83,7 +83,7 @@ public:
     {
         if (Window->objectName().isEmpty())
             Window->setObjectName(QStringLiteral("Window"));
-        Window->resize(556, 495);
+        Window->resize(773, 495);
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/seo-panda-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         Window->setWindowIcon(icon);
