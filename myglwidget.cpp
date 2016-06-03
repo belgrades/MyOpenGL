@@ -77,29 +77,6 @@ static void qNormalizeAngle(int &angle)
         angle -= 360 * 16;
 }
 
-void MyGLWidget::setXRotation(int angle)
-{
-    /*
-    qNormalizeAngle(angle);
-    if (angle != xRot) {
-        xRot = angle;
-        emit xRotationChanged(angle);
-        updateGL();
-    }
-    */
-}
-
-void MyGLWidget::setYRotation(int angle)
-{
-    /*
-    qNormalizeAngle(angle);
-    if (angle != yRot) {
-        yRot = angle;
-        emit yRotationChanged(angle);
-        updateGL();
-    }*/
-}
-
 void MyGLWidget::spin_slot(int value){
     cout<<value<<endl;
     if(value > probando)
@@ -122,11 +99,7 @@ void MyGLWidget::add_button_pressed_slot(){
     messageBox.critical(0,"Error","An error has occured !");*/
 
     /*
-    QMessageBox msgBox;
-     msgBox.setWindowTitle("Error!");
-     msgBox.setText("Short description");
-     msgBox.setDetailedText("Detailed error Information");
-     msgBox.exec();
+
      */
 
     error->showMessage("This is a message");
@@ -196,34 +169,11 @@ void MyGLWidget::open_file_slot(){
 
      QMessageBox::information(this, tr("Archivo abierto"), filename);
 
-
     cout<<"filename: "<<filename.toStdString()<<endl;
 
 }
 
 
-
-void MyGLWidget::setZRotation(int angle)
-{
-
-    emit zRotationChanged(angle);
-    updateGL();
-    /*qNormalizeAngle(angle);
-    if (angle != zRot) {
-        zRot = angle;
-        emit zRotationChanged(angle);
-        updateGL();
-    }*/
-}
-
-void MyGLWidget::setMyPrueba(int hola){
-
-    cout<<hola<<endl;
-    if(hola==50) {
-        emit pruebaChanged(35);
-        paintGL();
-    }
-}
 
 void MyGLWidget::initializeGL()
 {
@@ -274,7 +224,6 @@ void MyGLWidget::resizeGL(int width, int height)
 
 void MyGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    lastPos = event->pos();
     cout<<"mousePressEvent"<<endl;
 
     figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
@@ -295,19 +244,6 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
    figuras[0]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
    figuras[0]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
 
-    int dx = event->x() - lastPos.x();
-
-    int dy = event->y() - lastPos.y();
-
-    if (event->buttons() & Qt::LeftButton) {
-        setXRotation(xRot + 8 * dy);
-        setYRotation(yRot + 8 * dx);
-    } else if (event->buttons() & Qt::RightButton) {
-        setXRotation(xRot + 8 * dy);
-        setZRotation(zRot + 8 * dx);
-    }
-
-    lastPos = event->pos();
     updateGL();
 }
 

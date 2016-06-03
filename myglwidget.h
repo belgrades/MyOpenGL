@@ -43,12 +43,6 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event);
 
 public slots:
-    // slots for xyz-rotation slider
-    void setXRotation(int angle);
-    void setYRotation(int angle);
-    void setZRotation(int angle);
-    void setMyPrueba(int hola);
-
     // Slots for buttons
     void linea_button_pressed_slot(bool press);
     void triangulo_button_pressed_slot(bool press);
@@ -69,10 +63,6 @@ public slots:
 
 signals:
     // signaling rotation from mouse movement
-    void xRotationChanged(int angle);
-    void yRotationChanged(int angle);
-    void zRotationChanged(int angle);
-    void pruebaChanged(int hola);
     void linea_button_pressed_signal(bool press);
     void progress_bar_signal(int progress);
     void spin_signal(int value);
