@@ -70,7 +70,15 @@ signals:
     // signaling rotation from mouse movement
     void linea_button_pressed_signal(bool press);
     void progress_bar_signal(int progress);
+
+    // Spin signal
     void spin_signal(int value);
+
+    // Sliders signals
+    void change_red_slider(int value);
+    void change_green_slider(int value);
+    void change_blue_slider(int value);
+
 
 private:
     void draw();

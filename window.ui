@@ -99,7 +99,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
-            <widget class="QSlider" name="horizontalSlider">
+            <widget class="QSlider" name="red_slider">
              <property name="enabled">
               <bool>true</bool>
              </property>
@@ -130,7 +130,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_2">
+            <widget class="QSlider" name="green_slider">
              <property name="styleSheet">
               <string notr="true">background-color: green</string>
              </property>
@@ -143,7 +143,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSlider" name="horizontalSlider_3">
+            <widget class="QSlider" name="blue_slider">
              <property name="styleSheet">
               <string notr="true">background-color: blue</string>
              </property>
@@ -707,7 +707,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider</sender>
+   <sender>red_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>myGLWidget</receiver>
    <slot>red_slider_slot(int)</slot>
@@ -723,7 +723,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_2</sender>
+   <sender>green_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>myGLWidget</receiver>
    <slot>green_slider_slot(int)</slot>
@@ -739,7 +739,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>horizontalSlider_3</sender>
+   <sender>blue_slider</sender>
    <signal>valueChanged(int)</signal>
    <receiver>myGLWidget</receiver>
    <slot>blue_slider_slot(int)</slot>

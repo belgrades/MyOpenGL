@@ -111,6 +111,7 @@ void MyGLWidget::add_button_pressed_slot(){
     QVector<QVector3D*> opengl, pixel;
     figura* a;
 
+    // Check if actual figure is not done
     if(figuras.size()>0 && !figuras[actual]->done){
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Figura no finalizada", "Desea finalizar y guardar la figura?",
@@ -140,6 +141,10 @@ void MyGLWidget::add_button_pressed_slot(){
             inicio = new QVector3D(0.0, 0.0, 0.0);
             fin = new QVector3D(0.0, 0.0, 0.0);
             color = QVector3D(1.0, 0.0, 0.0);
+
+            emit change_red_slider(255);
+            emit change_blue_slider(0);
+            emit change_green_slider(0);
 
             opengl.push_back(inicio);
             opengl.push_back(fin);

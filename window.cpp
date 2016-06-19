@@ -17,6 +17,12 @@ Window::Window(QWidget *parent) :
     connect(ui->myGLWidget, SIGNAL(pruebaChanged(int)), ui->myPrueba, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(progress_bar_signal(int)), ui->progressBar, SLOT(setValue(int)));
     connect(ui->myGLWidget, SIGNAL(spin_signal(int)), ui->spin_box, SLOT(setValue(int)));
+
+    // Connections for color sliders, left panel
+    connect(ui->myGLWidget, SIGNAL(change_blue_slider(int)), ui->blue_slider, SLOT(setValue(int)));
+    connect(ui->myGLWidget, SIGNAL(change_green_slider(int)), ui->green_slider, SLOT(setValue(int)));
+    connect(ui->myGLWidget, SIGNAL(change_red_slider(int)), ui->red_slider, SLOT(setValue(int)));
+
     //connect(ui->myGLWidget, SIGNAL(linea_button_pressed_signal(bool)), ui->linea_button, SLOT(linea_button_pressed_slot(bool)));
 }
 
