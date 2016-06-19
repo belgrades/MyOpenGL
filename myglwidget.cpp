@@ -9,6 +9,7 @@
 #include <QDebug>
 #include "figura.h"
 #include "linea.h"
+#include "triangle.h"
 
 
 using namespace std;
@@ -67,6 +68,12 @@ static void qNormalizeAngle(int &angle)
         angle -= 360 * 16;
 }
 
+/* Special Buttons Slots*/
+
+void MyGLWidget::progress_bar_slot(int progress){
+    cout<<"Progress Bar>> "<<progress<<endl;
+}
+
 void MyGLWidget::spin_slot(int value){
 
     if(value > figuras.size() - 1)
@@ -117,14 +124,11 @@ void MyGLWidget::done_button_pressed_slot(void){
     updateGL();
 }
 
-void MyGLWidget::progress_bar_slot(int progress){
-    cout<<"Progress Bar>> "<<progress<<endl;
-}
+void MyGLWidget::add_button_pressed_slot()
+{
+    cout<<"Adding new figure"<<endl;
 
-void MyGLWidget::add_button_pressed_slot(){
-    cout<<"Anadiendo Figura nueva"<<endl;
-
-    QVector3D *inicio, *fin, color;
+    QVector3D *inicio, *fin, color, *medio;
     QVector<QVector3D*> opengl, pixel;
     figura* a;
 
@@ -149,7 +153,6 @@ void MyGLWidget::add_button_pressed_slot(){
         }
     }
 
-
     switch(actual_figure){
         case NONE:
              error_loading->showMessage("Seleccione un tipo de figura para añadir");
@@ -170,7 +173,7 @@ void MyGLWidget::add_button_pressed_slot(){
 
             pixel<<inicio<<fin;
 
-            a = new linea(opengl, pixel, color);
+            a = new linea(opengl, pixel, color, LINE);
             figuras.push_back(a);
 
             // Set actual index to last element in figures
@@ -190,6 +193,33 @@ void MyGLWidget::add_button_pressed_slot(){
 
         case TRIANGLE:
             cout<<"Adding Triangle"<<endl;
+
+            // Points of triangle
+            inicio = new QVector3D(0.0, 0.0, 0.0);
+            medio = new QVector3D(0.0, 0.0, 0.0);
+            fin = new QVector3D(0.0, 0.0, 0.0);
+
+            color = QVector3D(1.0, 0.0, 0.0);
+
+            emit change_red_slider(255);
+            emit change_blue_slider(0);
+            emit change_green_slider(0);
+
+            opengl.push_back(inicio);
+            opengl.push_back(medio);
+            opengl.push_back(fin);
+
+            pixel<<inicio<<medio<<fin;
+
+            a = new triangle(opengl, pixel, color, TRIANGLE);
+            figuras.push_back(a);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
+
         break;
 
         case BEZIER:
@@ -198,13 +228,12 @@ void MyGLWidget::add_button_pressed_slot(){
     }
 
     updateGL();
-   /* QMessageBox messageBox;
-    messageBox.critical(0,"Error","An error has occured !");*/
 }
 
 /* Figures Slots */
 
-void MyGLWidget::linea_button_pressed_slot(bool press){
+void MyGLWidget::linea_button_pressed_slot(bool press)
+{
     if(!press)
        cout<<"Linea desactiva "<<a++<<endl;
     else{
@@ -214,7 +243,8 @@ void MyGLWidget::linea_button_pressed_slot(bool press){
     }
 }
 
-void MyGLWidget::triangulo_button_pressed_slot(bool press){
+void MyGLWidget::triangulo_button_pressed_slot(bool press)
+{
     if(!press)
        cout<<"Triangulo desactiva "<<a++<<endl;
     else
@@ -222,7 +252,8 @@ void MyGLWidget::triangulo_button_pressed_slot(bool press){
 
 }
 
-void MyGLWidget::rectangulo_button_pressed_slot(bool press){
+void MyGLWidget::rectangulo_button_pressed_slot(bool press)
+{
    if(!press)
       cout<<"Rectangulo desactiva "<<a++<<endl;
    else
@@ -230,7 +261,8 @@ void MyGLWidget::rectangulo_button_pressed_slot(bool press){
 
 }
 
-void MyGLWidget::elipse_button_pressed_slot(bool press){
+void MyGLWidget::elipse_button_pressed_slot(bool press)
+{
     if(!press)
        cout<<"Elipse desactiva "<<a++<<endl;
     else
@@ -239,28 +271,33 @@ void MyGLWidget::elipse_button_pressed_slot(bool press){
 
 /* Colors Slots */
 
-void MyGLWidget::red_slider_slot(int number){
+void MyGLWidget::red_slider_slot(int number)
+{
     if(figuras.size()>0 && !figuras[actual]->done)
         figuras[actual]->color.setX(((float)number)/255.0);
 
     updateGL();
 }
 
-void MyGLWidget::green_slider_slot(int number){
+
+void MyGLWidget::green_slider_slot(int number)
+{
     if(figuras.size()>0 && !figuras[actual]->done)
         figuras[actual]->color.setY(((float)number)/255.0);
     updateGL();
 }
 
-
-void MyGLWidget::blue_slider_slot(int number){
+void MyGLWidget::blue_slider_slot(int number)
+{
     if(figuras.size()>0 && !figuras[actual]->done)
         figuras[actual]->color.setZ(((float)number)/255.0);
     updateGL();
 }
 
+/* Open file slot */
 
-void MyGLWidget::open_file_slot(){
+void MyGLWidget::open_file_slot()
+{
     QString filename = QFileDialog::getOpenFileName(
                 this,
                 tr("Abrir Archivo"),
@@ -272,6 +309,8 @@ void MyGLWidget::open_file_slot(){
 
     cout<<"filename: "<<filename.toStdString()<<endl;
 }
+
+/* OpenGL Abstract Methods */
 
 void MyGLWidget::initializeGL()
 {
@@ -298,6 +337,158 @@ void MyGLWidget::paintGL()
     draw();
 }
 
+void MyGLWidget::mousePressEvent(QMouseEvent *event)
+{
+    cout<<"mousePressEvent"<<endl;
+    if(figuras.size()>0 && !figuras[actual]->done){
+        switch(figuras[actual]->my_type){
+            case NONE:
+                 error_loading->showMessage("Seleccione un tipo de figura para añadir");
+            break;
+
+            case LINE:
+                // First point should be initialize
+                if(figuras[actual]->initialize){
+                    figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->initialize = false;
+                }
+
+                // Modify the second point
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+
+            break;
+
+            case ELLIPSE:
+                cout<<"Adding Ellipse"<<endl;
+            break;
+
+            case QUAD:
+                cout<<"Adding Quad"<<endl;
+            break;
+
+            case TRIANGLE:
+                // First point should be initialize
+                if(figuras[actual]->initialize){
+                    figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->initialize = false;
+                }
+
+                if(!figuras[actual]->stage){
+                    // Modify the second point
+                    figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->puntos_control_opengl[2]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[2]->setY(PixelToOpenGLY(event->y()));
+                }else{
+                    figuras[actual]->puntos_control_opengl[2]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[2]->setY(PixelToOpenGLY(event->y()));
+                }
+            break;
+
+            case BEZIER:
+                cout<<"Adding Bezier"<<endl;
+            break;
+        }
+    }
+    updateGL();
+
+}
+
+void MyGLWidget::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    qDebug()<<"Doble Click>>";
+}
+
+void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if(figuras.size()>0 && !figuras[actual]->done){
+        switch(figuras[actual]->my_type){
+            case NONE:
+                 error_loading->showMessage("Seleccione un tipo de figura para añadir");
+            break;
+
+            case LINE:
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+            break;
+
+            case ELLIPSE:
+                cout<<"Adding Ellipse"<<endl;
+            break;
+
+            case QUAD:
+                cout<<"Adding Quad"<<endl;
+            break;
+
+            case TRIANGLE:
+                cout<<"Triangle"<<endl;
+                if(!figuras[actual]->stage){
+                    // Modify the second point
+                    figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->puntos_control_opengl[2]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[2]->setY(PixelToOpenGLY(event->y()));
+                }else{
+                    figuras[actual]->puntos_control_opengl[2]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[2]->setY(PixelToOpenGLY(event->y()));
+                }
+            break;
+
+            case BEZIER:
+                cout<<"Adding Bezier"<<endl;
+            break;
+        }
+    }
+    updateGL();
+}
+
+void MyGLWidget::draw()
+{
+    glPolygonMode(GL_FRONT,GL_LINE);
+    glPolygonMode(GL_BACK,GL_LINE);
+    for(int i=0;i<figuras.size();i++){
+        if(!figuras[i]->initialize)
+            figuras[i]->dibujar_figura();
+    }
+}
+
+void MyGLWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(figuras.size()>0 && !figuras[actual]->done){
+        switch(figuras[actual]->my_type){
+            case NONE:
+                 error_loading->showMessage("Seleccione un tipo de figura para añadir");
+            break;
+
+            case LINE:
+
+            break;
+
+            case ELLIPSE:
+                cout<<"Adding Ellipse"<<endl;
+            break;
+
+            case QUAD:
+                cout<<"Adding Quad"<<endl;
+            break;
+
+            case TRIANGLE:
+                cout<<"Triangle"<<endl;
+                figuras[actual]->stage = 1;
+
+            break;
+
+            case BEZIER:
+                cout<<"Adding Bezier"<<endl;
+            break;
+        }
+    }
+    updateGL();
+}
+
 void MyGLWidget::resizeGL(int width, int height)
 {
 
@@ -311,54 +502,10 @@ void MyGLWidget::resizeGL(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-#ifdef QT_OPENGL_ES_1
-    glOrthof(-1, +1, -1, +1, 1.0, 15.0);
-#else
-    glOrtho(-1, +1, -1, +1, 1.0, 15.0);
-#endif
-    glMatrixMode(GL_MODELVIEW);
-}
-
-void MyGLWidget::mousePressEvent(QMouseEvent *event)
-{
-    cout<<"mousePressEvent"<<endl;
-    if(figuras.size()>0 && !figuras[actual]->done){
-
-        // First point should be initialize
-        if(figuras[actual]->initialize){
-            figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
-            figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
-            figuras[actual]->initialize = false;
-            cout<<"CREMA"<<endl;
-        }
-
-        // Modify the second point
-        figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
-        figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
-    }
-    updateGL();
-
-}
-
-void MyGLWidget::mouseDoubleClickEvent(QMouseEvent *event){
-
-    qDebug()<<"Doble Click>>";
-}
-
-void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    if(figuras.size()>0 && !figuras[actual]->done){
-       figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
-       figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
-    }
-    updateGL();
-}
-
-void MyGLWidget::draw()
-{
-    for(int i=0;i<figuras.size();i++){
-        if(!figuras[i]->initialize)
-            figuras[i]->dibujar_figura();
-    }
-
+    #ifdef QT_OPENGL_ES_1
+        glOrthof(-1, +1, -1, +1, 1.0, 15.0);
+    #else
+        glOrtho(-1, +1, -1, +1, 1.0, 15.0);
+    #endif
+        glMatrixMode(GL_MODELVIEW);
 }
