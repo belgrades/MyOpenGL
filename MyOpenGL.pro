@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     myglwidget.cpp \
     figura.cpp\
     widget3d.cpp \
-    linea.cpp
+    linea.cpp \
+    triangle.cpp
 
 
 HEADERS  += window.h \
@@ -25,7 +26,8 @@ HEADERS  += window.h \
     figura.h\
     widget3d.h \
     linea.h \
-    figure_type.h
+    figure_type.h \
+    triangle.h
 
 
 FORMS    += window.ui
