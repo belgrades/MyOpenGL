@@ -10,6 +10,7 @@
 #include "figura.h"
 #include "linea.h"
 #include "triangle.h"
+#include "quad.h"
 
 
 using namespace std;
@@ -128,7 +129,7 @@ void MyGLWidget::add_button_pressed_slot()
 {
     cout<<"Adding new figure"<<endl;
 
-    QVector3D *inicio, *fin, color, *medio;
+    QVector3D *inicio, *fin, color, *medio, *medio2;
     QVector<QVector3D*> opengl, pixel;
     figura* a;
 
@@ -189,6 +190,35 @@ void MyGLWidget::add_button_pressed_slot()
 
         case QUAD:
             cout<<"Adding Quad"<<endl;
+
+            // Figure Points
+            inicio = new QVector3D(0.0, 0.0, 0.0);
+            medio = new QVector3D(0.0, 0.0, 0.0);
+            medio2 = new QVector3D(0.0, 0.0, 0.0);
+            fin = new QVector3D(0.0, 0.0, 0.0);
+
+            // Figure color
+            color = QVector3D(1.0, 0.0, 0.0);
+
+            emit change_red_slider(255);
+            emit change_blue_slider(0);
+            emit change_green_slider(0);
+
+            opengl.push_back(inicio);
+            opengl.push_back(medio);
+            opengl.push_back(medio2);
+            opengl.push_back(fin);
+
+            pixel<<inicio<<medio<<medio2<<fin;
+
+            a = new quad(opengl, pixel, color, QUAD);
+            figuras.push_back(a);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
         break;
 
         case TRIANGLE:
@@ -366,6 +396,16 @@ void MyGLWidget::mousePressEvent(QMouseEvent *event)
 
             case QUAD:
                 cout<<"Adding Quad"<<endl;
+                // First point should be initialize
+                if(figuras[actual]->initialize){
+                    figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->initialize = false;
+                }
+
+                // Modify the second point
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
             break;
 
             case TRIANGLE:
@@ -421,6 +461,8 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
             case QUAD:
                 cout<<"Adding Quad"<<endl;
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
             break;
 
             case TRIANGLE:

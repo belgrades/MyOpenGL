@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     figura.cpp\
     widget3d.cpp \
     linea.cpp \
-    triangle.cpp
+    triangle.cpp \
+    quad.cpp
 
 
 HEADERS  += window.h \
@@ -27,7 +28,8 @@ HEADERS  += window.h \
     widget3d.h \
     linea.h \
     figure_type.h \
-    triangle.h
+    triangle.h \
+    quad.h
 
 
 FORMS    += window.ui
