@@ -35,6 +35,7 @@ protected:
     int actual;
 
     QErrorMessage *error_loading;
+    QErrorMessage *done_message;
 
     /**OpenGL virtual methods**/
     void initializeGL();

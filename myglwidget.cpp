@@ -26,6 +26,7 @@ MyGLWidget::MyGLWidget(QWidget *parent)
     zRot = 0;
     probando = 0;
     error_loading = new QErrorMessage(this);
+    done_message = new QErrorMessage(this);
 }
 
 MyGLWidget::~MyGLWidget()
@@ -92,12 +93,28 @@ void MyGLWidget::spin_slot(int value){
                 // Modify spin to actual
                 emit spin_signal(actual);
             }
+        }else{
+            // Undone actual
+            actual = value;
+            figuras[actual]->done = false;
         }
     }
 }
 
 void MyGLWidget::done_button_pressed_slot(void){
-    cout<<"Esto es una prueba"<<endl;
+    cout<<"Figure done"<<endl;
+
+    if(figuras.size()>0 && !figuras[actual]->done)
+        figuras[actual]->done = true;
+    else{
+        QMessageBox msgBox;
+            msgBox.setWindowTitle("Error!");
+            msgBox.setText("No se pudo finalizar la figura.");
+            msgBox.setDetailedText("1) No la ha creado. \n2) Ya ha sido finalizada.");
+            msgBox.exec();
+    }
+
+    updateGL();
 }
 
 void MyGLWidget::progress_bar_slot(int progress){
@@ -113,9 +130,11 @@ void MyGLWidget::add_button_pressed_slot(){
 
     // Check if actual figure is not done
     if(figuras.size()>0 && !figuras[actual]->done){
+
         QMessageBox::StandardButton reply;
         reply = QMessageBox::question(this, "Figura no finalizada", "Desea finalizar y guardar la figura?",
                                     QMessageBox::Yes|QMessageBox::No);
+
         if (reply == QMessageBox::Yes) {
             figuras[actual]->done = true;
         } else {
