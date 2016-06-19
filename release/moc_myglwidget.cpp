@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MyGLWidget_t {
-    QByteArrayData data[21];
-    char stringdata[357];
+    QByteArrayData data[24];
+    char stringdata[414];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,23 +37,28 @@ QT_MOC_LITERAL(4, 46, 19),
 QT_MOC_LITERAL(5, 66, 8),
 QT_MOC_LITERAL(6, 75, 11),
 QT_MOC_LITERAL(7, 87, 5),
-QT_MOC_LITERAL(8, 93, 25),
-QT_MOC_LITERAL(9, 119, 29),
-QT_MOC_LITERAL(10, 149, 30),
-QT_MOC_LITERAL(11, 180, 26),
-QT_MOC_LITERAL(12, 207, 24),
-QT_MOC_LITERAL(13, 232, 9),
-QT_MOC_LITERAL(14, 242, 15),
-QT_MOC_LITERAL(15, 258, 6),
-QT_MOC_LITERAL(16, 265, 16),
-QT_MOC_LITERAL(17, 282, 17),
-QT_MOC_LITERAL(18, 300, 23),
-QT_MOC_LITERAL(19, 324, 14),
-QT_MOC_LITERAL(20, 339, 17)
+QT_MOC_LITERAL(8, 93, 17),
+QT_MOC_LITERAL(9, 111, 19),
+QT_MOC_LITERAL(10, 131, 18),
+QT_MOC_LITERAL(11, 150, 25),
+QT_MOC_LITERAL(12, 176, 29),
+QT_MOC_LITERAL(13, 206, 30),
+QT_MOC_LITERAL(14, 237, 26),
+QT_MOC_LITERAL(15, 264, 24),
+QT_MOC_LITERAL(16, 289, 9),
+QT_MOC_LITERAL(17, 299, 15),
+QT_MOC_LITERAL(18, 315, 6),
+QT_MOC_LITERAL(19, 322, 16),
+QT_MOC_LITERAL(20, 339, 17),
+QT_MOC_LITERAL(21, 357, 23),
+QT_MOC_LITERAL(22, 381, 14),
+QT_MOC_LITERAL(23, 396, 17)
     },
     "MyGLWidget\0linea_button_pressed_signal\0"
     "\0press\0progress_bar_signal\0progress\0"
-    "spin_signal\0value\0linea_button_pressed_slot\0"
+    "spin_signal\0value\0change_red_slider\0"
+    "change_green_slider\0change_blue_slider\0"
+    "linea_button_pressed_slot\0"
     "triangulo_button_pressed_slot\0"
     "rectangulo_button_pressed_slot\0"
     "elipse_button_pressed_slot\0"
@@ -70,35 +75,41 @@ static const uint qt_meta_data_MyGLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   89,    2, 0x06 /* Public */,
-       4,    1,   92,    2, 0x06 /* Public */,
-       6,    1,   95,    2, 0x06 /* Public */,
+       1,    1,  104,    2, 0x06 /* Public */,
+       4,    1,  107,    2, 0x06 /* Public */,
+       6,    1,  110,    2, 0x06 /* Public */,
+       8,    1,  113,    2, 0x06 /* Public */,
+       9,    1,  116,    2, 0x06 /* Public */,
+      10,    1,  119,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       8,    1,   98,    2, 0x0a /* Public */,
-       9,    1,  101,    2, 0x0a /* Public */,
-      10,    1,  104,    2, 0x0a /* Public */,
-      11,    1,  107,    2, 0x0a /* Public */,
-      12,    0,  110,    2, 0x0a /* Public */,
-      13,    1,  111,    2, 0x0a /* Public */,
-      14,    1,  114,    2, 0x0a /* Public */,
-      16,    1,  117,    2, 0x0a /* Public */,
-      17,    1,  120,    2, 0x0a /* Public */,
-      18,    0,  123,    2, 0x0a /* Public */,
-      19,    0,  124,    2, 0x0a /* Public */,
-      20,    1,  125,    2, 0x0a /* Public */,
+      11,    1,  122,    2, 0x0a /* Public */,
+      12,    1,  125,    2, 0x0a /* Public */,
+      13,    1,  128,    2, 0x0a /* Public */,
+      14,    1,  131,    2, 0x0a /* Public */,
+      15,    0,  134,    2, 0x0a /* Public */,
+      16,    1,  135,    2, 0x0a /* Public */,
+      17,    1,  138,    2, 0x0a /* Public */,
+      19,    1,  141,    2, 0x0a /* Public */,
+      20,    1,  144,    2, 0x0a /* Public */,
+      21,    0,  147,    2, 0x0a /* Public */,
+      22,    0,  148,    2, 0x0a /* Public */,
+      23,    1,  149,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void, QMetaType::Int,    5,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int,    7,
     QMetaType::Void, QMetaType::Int,    7,
 
  // slots: parameters
@@ -108,9 +119,9 @@ static const uint qt_meta_data_MyGLWidget[] = {
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    7,
-    QMetaType::Void, QMetaType::Int,   15,
-    QMetaType::Void, QMetaType::Int,   15,
-    QMetaType::Void, QMetaType::Int,   15,
+    QMetaType::Void, QMetaType::Int,   18,
+    QMetaType::Void, QMetaType::Int,   18,
+    QMetaType::Void, QMetaType::Int,   18,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    5,
@@ -126,18 +137,21 @@ void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: _t->linea_button_pressed_signal((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 1: _t->progress_bar_signal((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: _t->spin_signal((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->linea_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 4: _t->triangulo_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->rectangulo_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: _t->elipse_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 7: _t->done_button_pressed_slot(); break;
-        case 8: _t->spin_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 9: _t->red_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: _t->blue_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->green_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->add_button_pressed_slot(); break;
-        case 13: _t->open_file_slot(); break;
-        case 14: _t->progress_bar_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->change_red_slider((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->change_green_slider((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->change_blue_slider((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 6: _t->linea_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: _t->triangulo_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: _t->rectangulo_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 9: _t->elipse_button_pressed_slot((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 10: _t->done_button_pressed_slot(); break;
+        case 11: _t->spin_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 12: _t->red_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->blue_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 14: _t->green_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 15: _t->add_button_pressed_slot(); break;
+        case 16: _t->open_file_slot(); break;
+        case 17: _t->progress_bar_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -159,6 +173,24 @@ void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             typedef void (MyGLWidget::*_t)(int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyGLWidget::spin_signal)) {
                 *result = 2;
+            }
+        }
+        {
+            typedef void (MyGLWidget::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyGLWidget::change_red_slider)) {
+                *result = 3;
+            }
+        }
+        {
+            typedef void (MyGLWidget::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyGLWidget::change_green_slider)) {
+                *result = 4;
+            }
+        }
+        {
+            typedef void (MyGLWidget::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&MyGLWidget::change_blue_slider)) {
+                *result = 5;
             }
         }
     }
@@ -189,13 +221,13 @@ int MyGLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 15)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 15;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 15)
+        if (_id < 18)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 15;
+        _id -= 18;
     }
     return _id;
 }
@@ -219,5 +251,26 @@ void MyGLWidget::spin_signal(int _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void MyGLWidget::change_red_slider(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void MyGLWidget::change_green_slider(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void MyGLWidget::change_blue_slider(int _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_END_MOC_NAMESPACE

@@ -46,9 +46,9 @@ public:
     QRadioButton *elipse_button;
     QRadioButton *radioButton;
     QVBoxLayout *verticalLayout_12;
-    QSlider *horizontalSlider;
-    QSlider *horizontalSlider_2;
-    QSlider *horizontalSlider_3;
+    QSlider *red_slider;
+    QSlider *green_slider;
+    QSlider *blue_slider;
     QHBoxLayout *horizontalLayout;
     QProgressBar *progressBar;
     QSpinBox *spin_box;
@@ -155,38 +155,38 @@ public:
         verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setSpacing(6);
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        horizontalSlider = new QSlider(Window);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setEnabled(true);
+        red_slider = new QSlider(Window);
+        red_slider->setObjectName(QStringLiteral("red_slider"));
+        red_slider->setEnabled(true);
         QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
-        horizontalSlider->setSizePolicy(sizePolicy);
-        horizontalSlider->setAutoFillBackground(false);
-        horizontalSlider->setStyleSheet(QStringLiteral("background-color: red"));
-        horizontalSlider->setMaximum(255);
-        horizontalSlider->setValue(255);
-        horizontalSlider->setOrientation(Qt::Horizontal);
-        horizontalSlider->setTickPosition(QSlider::NoTicks);
+        sizePolicy.setHeightForWidth(red_slider->sizePolicy().hasHeightForWidth());
+        red_slider->setSizePolicy(sizePolicy);
+        red_slider->setAutoFillBackground(false);
+        red_slider->setStyleSheet(QStringLiteral("background-color: red"));
+        red_slider->setMaximum(255);
+        red_slider->setValue(255);
+        red_slider->setOrientation(Qt::Horizontal);
+        red_slider->setTickPosition(QSlider::NoTicks);
 
-        verticalLayout_12->addWidget(horizontalSlider);
+        verticalLayout_12->addWidget(red_slider);
 
-        horizontalSlider_2 = new QSlider(Window);
-        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
-        horizontalSlider_2->setStyleSheet(QStringLiteral("background-color: green"));
-        horizontalSlider_2->setMaximum(255);
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
+        green_slider = new QSlider(Window);
+        green_slider->setObjectName(QStringLiteral("green_slider"));
+        green_slider->setStyleSheet(QStringLiteral("background-color: green"));
+        green_slider->setMaximum(255);
+        green_slider->setOrientation(Qt::Horizontal);
 
-        verticalLayout_12->addWidget(horizontalSlider_2);
+        verticalLayout_12->addWidget(green_slider);
 
-        horizontalSlider_3 = new QSlider(Window);
-        horizontalSlider_3->setObjectName(QStringLiteral("horizontalSlider_3"));
-        horizontalSlider_3->setStyleSheet(QStringLiteral("background-color: blue"));
-        horizontalSlider_3->setMaximum(255);
-        horizontalSlider_3->setOrientation(Qt::Horizontal);
+        blue_slider = new QSlider(Window);
+        blue_slider->setObjectName(QStringLiteral("blue_slider"));
+        blue_slider->setStyleSheet(QStringLiteral("background-color: blue"));
+        blue_slider->setMaximum(255);
+        blue_slider->setOrientation(Qt::Horizontal);
 
-        verticalLayout_12->addWidget(horizontalSlider_3);
+        verticalLayout_12->addWidget(blue_slider);
 
 
         horizontalLayout_7->addLayout(verticalLayout_12);
@@ -439,9 +439,9 @@ public:
         QObject::connect(abrir_archivo, SIGNAL(clicked()), myGLWidget, SLOT(open_file()));
         QObject::connect(done, SIGNAL(clicked()), myGLWidget, SLOT(done_button_pressed_slot()));
         QObject::connect(toolButton_7, SIGNAL(clicked()), myGLWidget, SLOT(add_button_pressed_slot()));
-        QObject::connect(horizontalSlider, SIGNAL(valueChanged(int)), myGLWidget, SLOT(red_slider_slot(int)));
-        QObject::connect(horizontalSlider_2, SIGNAL(valueChanged(int)), myGLWidget, SLOT(green_slider_slot(int)));
-        QObject::connect(horizontalSlider_3, SIGNAL(valueChanged(int)), myGLWidget, SLOT(blue_slider_slot(int)));
+        QObject::connect(red_slider, SIGNAL(valueChanged(int)), myGLWidget, SLOT(red_slider_slot(int)));
+        QObject::connect(green_slider, SIGNAL(valueChanged(int)), myGLWidget, SLOT(green_slider_slot(int)));
+        QObject::connect(blue_slider, SIGNAL(valueChanged(int)), myGLWidget, SLOT(blue_slider_slot(int)));
         QObject::connect(toolButton_6, SIGNAL(clicked()), myGLWidget, SLOT(open_file_slot()));
         QObject::connect(spin_box, SIGNAL(valueChanged(int)), myGLWidget, SLOT(spin_slot(int)));
 
