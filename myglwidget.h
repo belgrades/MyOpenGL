@@ -63,6 +63,8 @@ public slots:
     void green_slider_slot(int number);
 
     void add_button_pressed_slot();
+    void refresh_button_pressed();
+    void delete_button_pressed_slot();
     void open_file_slot();
 
     //Slot for progress bar

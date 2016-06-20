@@ -565,6 +565,8 @@
     <slot>green_slider_slot(int)</slot>
     <slot>blue_slider_slot(int)</slot>
     <slot>spin_slot(int)</slot>
+    <slot>refresh_button_pressed()</slot>
+    <slot>delete_button_pressed_slot()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -585,8 +587,8 @@
    <slot>linea_button_pressed_slot(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>238</y>
+     <x>69</x>
+     <y>271</y>
     </hint>
     <hint type="destinationlabel">
      <x>280</x>
@@ -601,8 +603,8 @@
    <slot>triangulo_button_pressed_slot(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>271</y>
+     <x>69</x>
+     <y>294</y>
     </hint>
     <hint type="destinationlabel">
      <x>280</x>
@@ -649,8 +651,8 @@
    <slot>progress_bar_slot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>286</x>
-     <y>362</y>
+     <x>298</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
      <x>280</x>
@@ -665,8 +667,8 @@
    <slot>open_file()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>525</x>
-     <y>413</y>
+     <x>625</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>280</x>
@@ -681,8 +683,8 @@
    <slot>done_button_pressed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>192</x>
-     <y>393</y>
+     <x>245</x>
+     <y>475</y>
     </hint>
     <hint type="destinationlabel">
      <x>129</x>
@@ -697,8 +699,8 @@
    <slot>add_button_pressed_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>143</x>
-     <y>398</y>
+     <x>185</x>
+     <y>475</y>
     </hint>
     <hint type="destinationlabel">
      <x>86</x>
@@ -713,8 +715,8 @@
    <slot>red_slider_slot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>172</x>
-     <y>228</y>
+     <x>270</x>
+     <y>283</y>
     </hint>
     <hint type="destinationlabel">
      <x>170</x>
@@ -729,8 +731,8 @@
    <slot>green_slider_slot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>258</y>
+     <x>244</x>
+     <y>318</y>
     </hint>
     <hint type="destinationlabel">
      <x>146</x>
@@ -745,8 +747,8 @@
    <slot>blue_slider_slot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>203</x>
-     <y>286</y>
+     <x>301</x>
+     <y>353</y>
     </hint>
     <hint type="destinationlabel">
      <x>190</x>
@@ -761,8 +763,8 @@
    <slot>open_file_slot()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>33</x>
-     <y>399</y>
+     <x>60</x>
+     <y>475</y>
     </hint>
     <hint type="destinationlabel">
      <x>44</x>
@@ -777,12 +779,44 @@
    <slot>spin_slot(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>334</x>
-     <y>355</y>
+     <x>381</x>
+     <y>407</y>
     </hint>
     <hint type="destinationlabel">
      <x>304</x>
      <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>myGLWidget</receiver>
+   <slot>refresh_button_pressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>453</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>333</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>myGLWidget</receiver>
+   <slot>delete_button_pressed_slot()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>298</x>
+     <y>451</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>

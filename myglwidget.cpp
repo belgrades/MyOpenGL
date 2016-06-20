@@ -74,6 +74,36 @@ static void qNormalizeAngle(int &angle)
 
 /* Special Buttons Slots*/
 
+void MyGLWidget::delete_button_pressed_slot(){
+    cout<<"Delete figure"<<endl;
+
+    if(figuras.size()>0){
+
+        QMessageBox::StandardButton reply;
+        reply = QMessageBox::question(this, "Eliminar figura", "Desea eliminar la figura actual?",
+                                    QMessageBox::Yes|QMessageBox::No);
+
+        if (reply == QMessageBox::Yes) {
+            // Erase element not done
+            figuras.removeAt(actual);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
+        }
+    }
+
+}
+
+void MyGLWidget::refresh_button_pressed(){
+    cout<<"Refresh"<<endl;
+    figuras.clear();
+    actual = -1;
+    updateGL();
+}
+
 void MyGLWidget::progress_bar_slot(int progress){
     cout<<"Progress Bar>> "<<progress<<endl;
 }
