@@ -11,6 +11,7 @@
 #include "linea.h"
 #include "triangle.h"
 #include "quad.h"
+#include "ellipse.h"
 
 
 using namespace std;
@@ -29,6 +30,8 @@ MyGLWidget::MyGLWidget(QWidget *parent)
     probando = 0;
     error_loading = new QErrorMessage(this);
     done_message = new QErrorMessage(this);
+    GL_WINDOW_HEIGHT = 600;
+    GL_WINDOW_WIDTH = 600;
 }
 
 MyGLWidget::~MyGLWidget()
@@ -186,6 +189,31 @@ void MyGLWidget::add_button_pressed_slot()
 
         case ELLIPSE:
             cout<<"Adding Ellipse"<<endl;
+            cout<<"Adding line"<<endl;
+
+            inicio = new QVector3D(0.0, 0.0, 0.0);
+            fin = new QVector3D(0.0, 0.0, 0.0);
+            color = QVector3D(1.0, 0.0, 0.0);
+
+            emit change_red_slider(255);
+            emit change_blue_slider(0);
+            emit change_green_slider(0);
+
+            opengl.push_back(inicio);
+            opengl.push_back(fin);
+
+            pixel<<inicio<<fin;
+
+            a = new ellipse(opengl, pixel, color, ELLIPSE);
+            a->GL_WINDOW_HEIGHT = GL_WINDOW_HEIGHT;
+            a->GL_WINDOW_WIDTH = GL_WINDOW_WIDTH;
+            figuras.push_back(a);
+
+            // Set actual index to last element in figures
+            actual = figuras.size()-1;
+
+            // Modify spin to actual
+            emit spin_signal(actual);
         break;
 
         case QUAD:
@@ -212,6 +240,7 @@ void MyGLWidget::add_button_pressed_slot()
             pixel<<inicio<<medio<<medio2<<fin;
 
             a = new quad(opengl, pixel, color, QUAD);
+
             figuras.push_back(a);
 
             // Set actual index to last element in figures
@@ -392,6 +421,16 @@ void MyGLWidget::mousePressEvent(QMouseEvent *event)
 
             case ELLIPSE:
                 cout<<"Adding Ellipse"<<endl;
+                // First point should be initialize
+                if(figuras[actual]->initialize){
+                    figuras[actual]->puntos_control_opengl[0]->setX(PixelToOpenGLX(event->x()));
+                    figuras[actual]->puntos_control_opengl[0]->setY(PixelToOpenGLY(event->y()));
+                    figuras[actual]->initialize = false;
+                }
+
+                // Modify the second point
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
             break;
 
             case QUAD:
@@ -457,6 +496,8 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
             case ELLIPSE:
                 cout<<"Adding Ellipse"<<endl;
+                figuras[actual]->puntos_control_opengl[1]->setX(PixelToOpenGLX(event->x()));
+                figuras[actual]->puntos_control_opengl[1]->setY(PixelToOpenGLY(event->y()));
             break;
 
             case QUAD:
@@ -535,7 +576,11 @@ void MyGLWidget::resizeGL(int width, int height)
 {
 
     GL_WINDOW_WIDTH = width;
-    GL_WINDOW_HEIGHT = height;
+
+    for(int i=0; i<figuras.size(); i++){
+        figuras[i]->GL_WINDOW_HEIGHT = height;
+        figuras[i]->GL_WINDOW_WIDTH = width;
+    }
 
     int side = qMin(width, height);
    // glViewport((width - side) / 2, (height - side) / 2, side, side);

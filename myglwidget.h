@@ -18,7 +18,7 @@ public:
 
     explicit MyGLWidget(QWidget *parent = 0);
     ~MyGLWidget();
-    int GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT;
+   int GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT;
    int a;
    int probando;
    QVector<figura*> figuras;

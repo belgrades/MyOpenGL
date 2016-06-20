@@ -16,6 +16,11 @@ public:
     int stage;
 
 public:
+    int GL_WINDOW_WIDTH, GL_WINDOW_HEIGHT;
+    GLfloat PixelToOpenGLX(int x);
+    GLfloat PixelToOpenGLY(int y);
+    GLint OpenGLToPixelX(float x);
+    GLint OpenGLToPixelY(float y);
     virtual void dibujar_figura() = 0;
 };
 
