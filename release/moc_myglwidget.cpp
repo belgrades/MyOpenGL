@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MyGLWidget_t {
-    QByteArrayData data[24];
-    char stringdata[414];
+    QByteArrayData data[26];
+    char stringdata[464];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,8 +51,10 @@ QT_MOC_LITERAL(18, 315, 6),
 QT_MOC_LITERAL(19, 322, 16),
 QT_MOC_LITERAL(20, 339, 17),
 QT_MOC_LITERAL(21, 357, 23),
-QT_MOC_LITERAL(22, 381, 14),
-QT_MOC_LITERAL(23, 396, 17)
+QT_MOC_LITERAL(22, 381, 22),
+QT_MOC_LITERAL(23, 404, 26),
+QT_MOC_LITERAL(24, 431, 14),
+QT_MOC_LITERAL(25, 446, 17)
     },
     "MyGLWidget\0linea_button_pressed_signal\0"
     "\0press\0progress_bar_signal\0progress\0"
@@ -65,7 +67,9 @@ QT_MOC_LITERAL(23, 396, 17)
     "done_button_pressed_slot\0spin_slot\0"
     "red_slider_slot\0number\0blue_slider_slot\0"
     "green_slider_slot\0add_button_pressed_slot\0"
-    "open_file_slot\0progress_bar_slot"
+    "refresh_button_pressed\0"
+    "delete_button_pressed_slot\0open_file_slot\0"
+    "progress_bar_slot"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +79,7 @@ static const uint qt_meta_data_MyGLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      20,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,26 +87,28 @@ static const uint qt_meta_data_MyGLWidget[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  104,    2, 0x06 /* Public */,
-       4,    1,  107,    2, 0x06 /* Public */,
-       6,    1,  110,    2, 0x06 /* Public */,
-       8,    1,  113,    2, 0x06 /* Public */,
-       9,    1,  116,    2, 0x06 /* Public */,
-      10,    1,  119,    2, 0x06 /* Public */,
+       1,    1,  114,    2, 0x06 /* Public */,
+       4,    1,  117,    2, 0x06 /* Public */,
+       6,    1,  120,    2, 0x06 /* Public */,
+       8,    1,  123,    2, 0x06 /* Public */,
+       9,    1,  126,    2, 0x06 /* Public */,
+      10,    1,  129,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    1,  122,    2, 0x0a /* Public */,
-      12,    1,  125,    2, 0x0a /* Public */,
-      13,    1,  128,    2, 0x0a /* Public */,
-      14,    1,  131,    2, 0x0a /* Public */,
-      15,    0,  134,    2, 0x0a /* Public */,
-      16,    1,  135,    2, 0x0a /* Public */,
-      17,    1,  138,    2, 0x0a /* Public */,
-      19,    1,  141,    2, 0x0a /* Public */,
-      20,    1,  144,    2, 0x0a /* Public */,
-      21,    0,  147,    2, 0x0a /* Public */,
-      22,    0,  148,    2, 0x0a /* Public */,
-      23,    1,  149,    2, 0x0a /* Public */,
+      11,    1,  132,    2, 0x0a /* Public */,
+      12,    1,  135,    2, 0x0a /* Public */,
+      13,    1,  138,    2, 0x0a /* Public */,
+      14,    1,  141,    2, 0x0a /* Public */,
+      15,    0,  144,    2, 0x0a /* Public */,
+      16,    1,  145,    2, 0x0a /* Public */,
+      17,    1,  148,    2, 0x0a /* Public */,
+      19,    1,  151,    2, 0x0a /* Public */,
+      20,    1,  154,    2, 0x0a /* Public */,
+      21,    0,  157,    2, 0x0a /* Public */,
+      22,    0,  158,    2, 0x0a /* Public */,
+      23,    0,  159,    2, 0x0a /* Public */,
+      24,    0,  160,    2, 0x0a /* Public */,
+      25,    1,  161,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -122,6 +128,8 @@ static const uint qt_meta_data_MyGLWidget[] = {
     QMetaType::Void, QMetaType::Int,   18,
     QMetaType::Void, QMetaType::Int,   18,
     QMetaType::Void, QMetaType::Int,   18,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    5,
@@ -150,8 +158,10 @@ void MyGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 13: _t->blue_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 14: _t->green_slider_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 15: _t->add_button_pressed_slot(); break;
-        case 16: _t->open_file_slot(); break;
-        case 17: _t->progress_bar_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 16: _t->refresh_button_pressed(); break;
+        case 17: _t->delete_button_pressed_slot(); break;
+        case 18: _t->open_file_slot(); break;
+        case 19: _t->progress_bar_slot((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -221,13 +231,13 @@ int MyGLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 20)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 20;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 20)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 20;
     }
     return _id;
 }
